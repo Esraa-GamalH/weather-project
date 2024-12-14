@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-city-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './city-card.component.html',
   styleUrl: './city-card.component.css'
 })

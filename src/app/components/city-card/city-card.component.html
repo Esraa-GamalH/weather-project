@@ -1,5 +1,5 @@
-<section class="relative bg-white bg-opacity-80 p-5 rounded-3xl w-11/12 md:w-3/4 hover:bg-opacity-100 m-auto">
-    <img [src]="lastDayForecastIcon" alt="" class="absolute -top-10 right-0">
+<section class="relative bg-white bg-opacity-80 p-5 rounded-3xl w-11/12 md:w-3/4 hover:bg-opacity-100 m-auto cursor-pointer" [routerLink]="['/cityForecast', city.id]">
+    <img [src]="lastDayForecastIcon" class="absolute -top-10 right-0">
     <div>
         <h2 class="text-5xl text-orange mb-2 font-bold">{{lastDayForecast.temperatureCelsius}}&deg;</h2>
     </div>

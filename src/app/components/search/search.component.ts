@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -12,6 +13,8 @@ export class SearchComponent {
   searchForm = new FormGroup({
     cityName: new FormControl(''),
   });
+
+  constructor(private router: Router){}
   
   // filtered cities according to user input in search bar
   @Input() forecasts!: any[];
@@ -46,8 +49,7 @@ export class SearchComponent {
 
     // Navigate to show city forecast details
     navigateToCityDetails(cityId: number) {
-      
-      console.log('Selected city ID:', cityId);
+      this.router.navigate([`/cityForecast`, cityId]);
     }
   
 }
