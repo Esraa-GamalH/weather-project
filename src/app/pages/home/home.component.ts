@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather.service';
 import { CityCardComponent } from '../../components/city-card/city-card.component';
+import { SearchComponent } from "../../components/search/search.component";
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CityCardComponent],
+  imports: [CityCardComponent, SearchComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
