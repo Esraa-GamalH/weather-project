@@ -1,3 +1,9 @@
-<header class="h-screen"></header>
-<main></main>
-<footer></footer>
+<section>
+    <header class="h-screen"></header>
+    <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 m-5">
+        @for(forecast of forecasts ; track $index){
+            <app-city-card [city]="forecast"></app-city-card>
+        }
+    </main>
+    <footer></footer>
+</section>
