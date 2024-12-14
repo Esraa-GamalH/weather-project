@@ -1,6 +1,7 @@
-header{
-    background-image: url('/assets/bg.png');
+section{
+    background-image: url('/assets/background.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    background-attachment: fixed;
 }
