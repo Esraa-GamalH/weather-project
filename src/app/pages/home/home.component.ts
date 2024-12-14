@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather.service';
-import { CityCardComponent } from "../../city-card/city-card.component";
+import { CityCardComponent } from '../../components/city-card/city-card.component';
+
 
 @Component({
   selector: 'app-home',
