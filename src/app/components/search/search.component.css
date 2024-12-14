@@ -1,29 +1,9 @@
-.search {
-    border: none;
-    padding: 2rem 2rem 2rem 2rem;
-    font-size: 25px;
-}
-
 input:focus {
-    outline: none;
-    box-shadow: none;
     border-color: transparent;
 }
 
 .search::placeholder {
-    color: #FB8500;
-    font-size: 25px;
-}
-
-.search-field {
-    position: relative;
-}
-
-.search-btn {
-    position: absolute;
-    top: 30%;
-    right: 0;
-    height: auto;
+    color: #023047;
 }
 
 .search-btn:hover {
