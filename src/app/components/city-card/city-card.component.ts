@@ -15,7 +15,10 @@ export class CityCardComponent {
 
   ngOnInit(){
     this.cityForecast = this.city.forecast;
+
+    // showing forecast of latest day available
     this.lastDayForecast = this.cityForecast[this.cityForecast.length-1];
+    
     this.lastDayForecastIcon = this.getWeatherIcon(this.lastDayForecast.temperatureCelsius);
   }
 

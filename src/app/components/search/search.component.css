@@ -1,0 +1,12 @@
+input:focus {
+    border-color: transparent;
+}
+
+.search::placeholder {
+    color: #023047;
+}
+
+.search-btn:hover {
+    scale: 1.2;
+    transition: 1s;
+}
