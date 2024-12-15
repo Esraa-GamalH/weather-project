@@ -27,8 +27,6 @@ export class SearchComponent {
       cityName: data.city,
       cityId: data.id,
     }));
-    console.log("my cities", this.cities);
-    
 
     // listen to value changes in user input
     this.searchForm.get('cityName')?.valueChanges.subscribe((value) => {
