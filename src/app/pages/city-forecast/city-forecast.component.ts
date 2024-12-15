@@ -3,6 +3,7 @@ import { WeatherService } from '../../services/weather.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { TempUnitService } from '../../services/temp-unit.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-city-forecast',
@@ -18,6 +19,7 @@ export class CityForecastComponent implements OnInit {
   selectedDate!: string;
   unit: 'C' | 'F' = 'C';
   temperature !: number;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private weatherService: WeatherService, private route: ActivatedRoute, private unitService:TempUnitService){}
 
@@ -26,7 +28,7 @@ export class CityForecastComponent implements OnInit {
     this.cityId = this.route.snapshot.paramMap.get('cityId');
 
     // Fetch city details from service
-    this.weatherService.getCityForecast(this.cityId).subscribe((data) => {
+    const cityForecastSub = this.weatherService.getCityForecast(this.cityId).subscribe((data) => {
       this.cityDetails = data;
       
       // make first date is default selected
@@ -34,11 +36,14 @@ export class CityForecastComponent implements OnInit {
       this.updateTemperature();
       this.selectedDate = this.selectedDateForecast.date; 
     });
-
-    this.unitService.unit$.subscribe((unit) => {
+    this.subscriptions.add(cityForecastSub);
+    
+    // Subscribe to unit changes globally
+    const unitSub = this.unitService.unit$.subscribe((unit) => {
       this.unit = unit;
       this.updateTemperature();
     });
+    this.subscriptions.add(unitSub);
   }
 
   onDateChange(event: Event){
@@ -51,6 +56,11 @@ export class CityForecastComponent implements OnInit {
 
   updateTemperature(){
     this.temperature = this.unit === 'C'? this.selectedDateForecast.temperatureCelsius : this.selectedDateForecast.temperatureFahrenheit;
+  }
+
+  // Unsubscribe from all subscriptions to prevent memory leak
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
 }
