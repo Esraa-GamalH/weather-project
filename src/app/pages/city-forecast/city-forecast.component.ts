@@ -1,7 +1,8 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { TempUnitService } from '../../services/temp-unit.service';
 
 @Component({
   selector: 'app-city-forecast',
@@ -15,8 +16,10 @@ export class CityForecastComponent implements OnInit {
   cityId!: any;
   selectedDateForecast !: any;
   selectedDate!: string;
+  unit: 'C' | 'F' = 'C';
+  temperature !: number;
 
-  constructor(private weatherService: WeatherService, private route: ActivatedRoute){}
+  constructor(private weatherService: WeatherService, private route: ActivatedRoute, private unitService:TempUnitService){}
 
   ngOnInit(){
     //extract city Id from url route
@@ -27,8 +30,14 @@ export class CityForecastComponent implements OnInit {
       this.cityDetails = data;
       
       // make first date is default selected
-      this.selectedDateForecast = this.cityDetails.forecast[0];    
+      this.selectedDateForecast = this.cityDetails.forecast[0]; 
+      this.updateTemperature();
       this.selectedDate = this.selectedDateForecast.date; 
+    });
+
+    this.unitService.unit$.subscribe((unit) => {
+      this.unit = unit;
+      this.updateTemperature();
     });
   }
 
@@ -37,7 +46,13 @@ export class CityForecastComponent implements OnInit {
     this.selectedDateForecast = this.cityDetails.forecast.find(
       (forecast: any) => forecast.date === selectedDate
     );
-    }
+    this.updateTemperature();
   }
+
+  updateTemperature(){
+    this.temperature = this.unit === 'C'? this.selectedDateForecast.temperatureCelsius : this.selectedDateForecast.temperatureFahrenheit;
+  }
+
+}
 
 

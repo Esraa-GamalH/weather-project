@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,6 +10,8 @@ import { RouterLink } from '@angular/router';
 })
 export class CityCardComponent {
   @Input() city!: any;
+  @Input() unit!: 'C' | 'F';
+  temperature!: number;
   cityForecast: any[] = [];
   lastDayForecast: any;
   lastDayForecastIcon: string = "";
@@ -19,11 +21,23 @@ export class CityCardComponent {
 
     // showing forecast of latest day available
     this.lastDayForecast = this.cityForecast[this.cityForecast.length-1];
-    
+    this.updateTemperature();
+
+    // change weather icon
     this.lastDayForecastIcon = this.getWeatherIcon(this.lastDayForecast.temperatureCelsius);
   }
 
-  // Determine weather icon based on temperature
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['unit'] && this.lastDayForecast) {
+      this.updateTemperature();
+    }
+  }
+
+  updateTemperature(){
+    this.temperature = this.unit === 'C'? this.lastDayForecast.temperatureCelsius : this.lastDayForecast.temperatureFahrenheit;
+  }
+
+  // Determine weather icon based on temperature in C
   getWeatherIcon(temperature: number): string {
     if (temperature < 10) {
       return 'assets/icons/rainy.png';
@@ -35,4 +49,5 @@ export class CityCardComponent {
       return 'assets/icons/sunny.png';
     }
   }
+
 }
