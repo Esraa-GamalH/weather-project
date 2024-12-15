@@ -22,7 +22,7 @@
         <div class="bottom basis-full md:basis-1/3 text-center">
             <label for="forecast-date" class="text-white text-2xl hidden md:inline-block pr-1">Date: </label>
             <!-- Looping over each day for forecast -->
-            <select name="forecast-date" id="forecast-date" class="bg-white bg-opacity-70 mt-6 md:mt-0" (change)="onDateChange($event)">
+            <select name="forecast-date" id="forecast-date" class="bg-white bg-opacity-70 mt-6 md:mt-0 border border-light-blue text-dark-blue text-sm rounded-lg mx-6" (change)="onDateChange($event)">
                 @for(forecast of cityDetails.forecast; track $index){
                     <option class="bg-" [value]="forecast.date">{{forecast.date}}</option>
                 }
