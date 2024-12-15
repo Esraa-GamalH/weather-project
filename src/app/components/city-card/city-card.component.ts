@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { City } from '../../interfaces/city';
 
 @Component({
   selector: 'app-city-card',
@@ -9,7 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './city-card.component.css'
 })
 export class CityCardComponent {
-  @Input() city!: any;
+  @Input() city!: City;
   @Input() unit!: 'C' | 'F';
   temperature!: number;
   cityForecast: any[] = [];
